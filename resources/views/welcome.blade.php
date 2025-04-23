@@ -1,22 +1,442 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>ONFIVE - {{   }} </title>
+@section('content')
+<div class="container p-4">
+    <div class="row my-2">
+        <div class="col-xl-9 my-2 enroll-card p-2 text-center shadow">
+            <div class="row">
+                <div class="col-xl-2 d-flex align-items-center justify-content-center">
+                    <img loading="eager" src="{{ asset('assets/images/ONFIVE.png') }}" width="100px" alt="">
+                </div>
+                <div class="col-xl-2 d-flex align-items-center justify-content-center">
+                    <a href="" class="action-btn">STAFF</a>
+                </div>
+                <div class="col-xl-6 d-flex align-items-center justify-content-center">
+                    <p>Host matches, save their data and much more ...</p>
+                </div>
+                <div class="col-xl-2 d-flex align-items-center justify-content-center">
+                    <a href="" class="action-btn">Enroll</a>
+                </div>
+            </div>
+        </div>
+                  
+        <div class="col-xl-3 my-2 d-flex align-items-center justify-content-center shadow">
+            <a href="#" class="btn play-btn text-center btn-lg d-flex align-items-center justify-content-center">
+                <h1 style="font-weight: 700;">PLAY</h1>
+            </a>
+        </div> 
+    </div>
 
+    <div class="row my-2">
+        <div class="col-xl-9 my-2 px-4">
+            <div class="row">
+                <div class="col-xl-12 my-2 p-4 bg-primary text-white shadow border-radius">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-xl-2 my-2">
+                            <img loading="eager" src="{{ asset('assets/images/Tournament.png') }}" width="100" height="100px" class="img-fluid" alt="">
+                        </div>
+                        <div class="col-xl-3 my-2">
+                            <h4 class="mb-2 h4">Cih Tournament</h4>
+                            <div class="">
+                                <span class="badge" style="background-color: #FF8000;">Registration In Progress</span>
+                            </div>
+                        </div>
+                        <div class="col-xl my-2">
+                            <h6 class="h6">Start:</h6>
+                            <p style="font-size: 12px;">Today at 20.00</p>
+                        </div>
+                        <div class="col-xl my-2">
+                            <h6 class="h6">Category:</h6>
+                            <p style="font-size: 12px;">U17</p>
+                        </div>
+                        <div class="col-xl my-2">
+                            <h6 class="h6">Participants:</h6>
+                            <p style="font-size: 12px;">14/16</p>
+                        </div>
+                        <div class="col-xl my-2">
+                            <h6 class="h6">Region:</h6>
+                            <p style="font-size: 12px;">Errachidia</p>
+                        </div>
+                        <div class="col-xl my-2">
+                            <h6 class="h6">Prize:</h6>
+                            <p style="font-size: 12px;">2000MAD</p>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-xl-12 my-2 p-4 bg-primary text-white shadow border-radius">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-xl-2 my-2">
+                            <img loading="lazy" src="{{ asset('assets/images/Tournament.png') }}" width="100" height="100px" class="img-fluid" alt="">
+                        </div>
+                        <div class="col-xl-3 my-2">
+                            <h4 class="mb-2 h4">Cih Tournament</h4>
+                            <div class="">
+                                <span class="badge" style="background-color: #FF8000;">Registration In Progress</span>
+                            </div>
+                        </div>
+                        <div class="col-xl my-2">
+                            <h6 class="h6">Start:</h6>
+                            <p style="font-size: 12px;">Today at 20.00</p>
+                        </div>
+                        <div class="col-xl my-2">
+                            <h6 class="h6">Category:</h6>
+                            <p style="font-size: 12px;">U17</p>
+                        </div>
+                        <div class="col-xl my-2">
+                            <h6 class="h6">Participants:</h6>
+                            <p style="font-size: 12px;">14/16</p>
+                        </div>
+                        <div class="col-xl my-2">
+                            <h6 class="h6">Region:</h6>
+                            <p style="font-size: 12px;">Errachidia</p>
+                        </div>
+                        <div class="col-xl my-2">
+                            <h6 class="h6">Prize:</h6>
+                            <p style="font-size: 12px;">2000MAD</p>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-xl-12 my-2 p-4 bg-primary text-white shadow border-radius">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-xl-2 my-2">
+                            <img src="{{ asset('assets/images/Tournament.png') }}" width="100" height="100px" class="img-fluid" alt="">
+                        </div>
+                        <div class="col-xl-3 my-2">
+                            <h4 class="mb-2 h4">Cih Tournament</h4>
+                            <div class="">
+                                <span class="badge" style="background-color: #FF8000;">Registration In Progress</span>
+                            </div>
+                        </div>
+                        <div class="col-xl my-2">
+                            <h6 class="h6">Start:</h6>
+                            <p style="font-size: 12px;">Today at 20.00</p>
+                        </div>
+                        <div class="col-xl my-2">
+                            <h6 class="h6">Category:</h6>
+                            <p style="font-size: 12px;">U17</p>
+                        </div>
+                        <div class="col-xl my-2">
+                            <h6 class="h6">Participants:</h6>
+                            <p style="font-size: 12px;">14/16</p>
+                        </div>
+                        <div class="col-xl my-2">
+                            <h6 class="h6">Region:</h6>
+                            <p style="font-size: 12px;">Errachidia</p>
+                        </div>
+                        <div class="col-xl my-2">
+                            <h6 class="h6">Prize:</h6>
+                            <p style="font-size: 12px;">2000MAD</p>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-xl-12 my-2 p-4 bg-primary text-white shadow border-radius">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-xl-2 my-2">
+                            <img loading="lazy" src="{{ asset('assets/images/Tournament.png') }}" height="100px" width="100" class="img-fluid" alt="">
+                        </div>
+                        <div class="col-xl-3 my-2">
+                            <h4 class="mb-2 h4">Cih Tournament</h4>
+                            <div class="">
+                                <span class="badge" style="background-color: #FF8000;">Registration In Progress</span>
+                            </div>
+                        </div>
+                        <div class="col-xl my-2">
+                            <h6 class="h6">Start:</h6>
+                            <p style="font-size: 12px;">Today at 20.00</p>
+                        </div>
+                        <div class="col-xl my-2">
+                            <h6 class="h6">Category:</h6>
+                            <p style="font-size: 12px;">U17</p>
+                        </div>
+                        <div class="col-xl my-2">
+                            <h6 class="h6">Participants:</h6>
+                            <p style="font-size: 12px;">14/16</p>
+                        </div>
+                        <div class="col-xl my-2">
+                            <h6 class="h6">Region:</h6>
+                            <p style="font-size: 12px;">Errachidia</p>
+                        </div>
+                        <div class="col-xl my-2">
+                            <h6 class="h6">Prize:</h6>
+                            <p style="font-size: 12px;">2000MAD</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+                  
+        <div class="col-xl-3 my-2 px-4">
+            <div class="row my-2">
+                <div class="col-xl-12 text-white ">
+                    <h4 class="h4">Matches of the week</h4>
+                    <div class="row">
+                        <div class="col-xl-12 bg-primary py-3 my-2 border-radius shadow ">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <div class="text-center">
+                                    <img loading="lazy" src="{{ asset('assets/images/Real-Madrid-logo.png') }}" class="img-fluid" width="60" alt="">
+                                    <h6>team 1</h6>
+                                </div>
+                                <H4 class="mx-4">vs </H4>
+                                <div class="text-center">
+                                   <img loading="lazy" src="{{ asset('assets/images/Real-Madrid-logo.png') }}" class="img-fluid" width="60" alt=""> 
+                                   <h6>team 2</h6>
+                                </div>
+                            </div>
+                            <div class="text-center" style="font-size: 10px;">
+                                <p class="my-0"><b>Saturday 8 Juin</b></p>
+                                <p class="my-0">Complexe Elwaha</p>
+                                <p class="my-0">20:00</p>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12 bg-primary py-3 my-2 border-radius shadow ">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <div class="text-center">
+                                    <img loading="lazy" src="{{ asset('assets/images/Real-Madrid-logo.png') }}" class="img-fluid" width="60" alt="">
+                                    <h6>team 1</h6>
+                                </div>
+                                <H4 class="mx-4">vs </H4>
+                                <div class="text-center">
+                                   <img loading="lazy" src="{{ asset('assets/images/Real-Madrid-logo.png') }}" class="img-fluid" width="60" alt=""> 
+                                   <h6>team 2</h6>
+                                </div>
+                            </div>
+                            <div class="text-center" style="font-size: 10px;">
+                                <p class="my-0"><b>Saturday 8 Juin</b></p>
+                                <p class="my-0">Complexe Elwaha</p>
+                                <p class="my-0">20:00</p>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            <div class="my-2">
+                <img loading="lazy" src="{{ asset('assets/images/inwi-hakimi.png') }}" height="800px" height="600px" class="img-fluid border-radius" alt="">
+            </div>
+        </div> 
+    </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <div class="row my-2">
+        <div class="col-xl-12 my-2 bg-primary border-radius shadow text-white">
+          <div class="row my-2 p-5 d-flex align-items-center justify-content-center text-center">
+            <div class="col-xl d-flex align-items-center justify-content-center">
+              <h5 class="text-center">Join our community now and become one of the best.</h5>
+            </div>
+            <div class="col-xl-2 d-flex align-items-center justify-content-center">
+              <a href="" class="btn btn-warning border-radius">Sign up</a>
+            </div>
+          </div>
+        </div>
+    </div>
 
+    <div class="row my-4">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img loading="lazy" src="https://placehold.co/800x400?text=IMAGE1" class="d-block w-100" alt="Image 1">
+              </div>
+              <div class="carousel-item">
+                <img loading="lazy" src="https://placehold.co/800x400?text=IMAGE2" class="d-block w-100" alt="Image 2">
+              </div>
+              <div class="carousel-item">
+                <img loading="lazy" src="https://placehold.co/800x400?text=IMAGE3" class="d-block w-100" alt="Image 3">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          
+    </div>
 
-        <!-- Styles -->
-        <style>
-            @theme {
-            }
-        </style>
-    </head>
-    <body>
+    <div class="row my-2"> 
+        <div class="col-xl m-2  p-4 text-white bg-primary shadow border-radius">
+            <div class="row">
+                <div class="col-xl">
+                    <img loading="lazy" src="{{ asset('assets/images/league2 (1).png') }}" class="img-fluid" alt="">
+                </div>
+                <div class="col-xl p-5">
+                    <h1>League 1</h1>
+                    <h4>FRMBB</h4>
+                </div>
+            </div>
+            <div class="">
+                <table class="table text-white table-borderless">
+                    <thead>
+                        <tr>
+                            <th>Start:</th>
+                            <th>Category</th>
+                            <th>Participants</th>
+                            <th>Region</th>
+                            <th>Prize</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Today at 20.00</td>
+                            <td>U17</td>
+                            <td>14/16</td>
+                            <td>Errachidia</td>
+                            <td>2000MAD</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover text-white">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>G</th>
+                      <th>W</th>
+                      <th>D</th>
+                      <th>L</th>
+                      <th>P</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><img loading="lazy" src="{{ asset('assets/images/FCB-logo.png') }}" width="50" class="img-fluid" alt=""></td>
+                      <td>10</td>
+                      <td>9</td>
+                      <td>1</td>
+                      <td>0</td>
+                      <td>28</td>
+                    </tr>
+                    <tr>
+                        <td><img loading="lazy" src="{{ asset('assets/images/FCB-logo.png') }}" width="50" class="img-fluid" alt=""></td>
+                        <td>10</td>
+                        <td>9</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>28</td>
+                    </tr>
+                    <tr>
+                        <td><img loading="lazy" src="{{ asset('assets/images/FCB-logo.png') }}" width="50" class="img-fluid" alt=""></td>
+                        <td>10</td>
+                        <td>9</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>28</td>
+                    </tr>
+                    <tr>
+                        <td><img loading="lazy" src="{{ asset('assets/images/FCB-logo.png') }}" width="50" class="img-fluid" alt=""></td>
+                        <td>10</td>
+                        <td>9</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>28</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>       
+        </div>
+        <div class="col-xl m-2  p-4 text-white bg-primary shadow border-radius">
+            <div class="row">
+                <div class="col-xl">
+                    <img loading="lazy" src="{{ asset('assets/images/league2 (1).png') }}" class="img-fluid" alt="">
+                </div>
+                <div class="col-xl p-5">
+                    <h1>League 1</h1>
+                    <h4>FRMBB</h4>
+                </div>
+            </div>
+            <div class="">
+                <table class="table text-white table-borderless">
+                    <thead>
+                        <tr>
+                            <th>Start:</th>
+                            <th>Category</th>
+                            <th>Participants</th>
+                            <th>Region</th>
+                            <th>Prize</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Today at 20.00</td>
+                            <td>U17</td>
+                            <td>14/16</td>
+                            <td>Errachidia</td>
+                            <td>2000MAD</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover text-white">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>G</th>
+                      <th>W</th>
+                      <th>D</th>
+                      <th>L</th>
+                      <th>P</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><img loading="lazy" src="{{ asset('assets/images/FCB-logo.png') }}" width="50" class="img-fluid" alt=""></td>
+                      <td>10</td>
+                      <td>9</td>
+                      <td>1</td>
+                      <td>0</td>
+                      <td>28</td>
+                    </tr>
+                    <tr>
+                        <td><img loading="lazy" src="{{ asset('assets/images/FCB-logo.png') }}" width="50" class="img-fluid" alt=""></td>
+                        <td>10</td>
+                        <td>9</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>28</td>
+                    </tr>
+                    <tr>
+                        <td><img loading="lazy" src="{{ asset('assets/images/FCB-logo.png') }}" width="50" class="img-fluid" alt=""></td>
+                        <td>10</td>
+                        <td>9</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>28</td>
+                    </tr>
+                    <tr>
+                        <td><img loading="lazy" src="{{ asset('assets/images/FCB-logo.png') }}" width="50" class="img-fluid" alt=""></td>
+                        <td>10</td>
+                        <td>9</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>28</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>       
+        </div>
+    </div>
 
-    </body>
-</html>
+    <div class="row my-4">
+        <section class="customer-logos slider">
+            <div class="slide"><img loading="lazy" src="{{ asset('assets/images/puma_logo.png') }}" alt="Puma" class="img-fluid brand-logo"></div>
+            <div class="slide"><img loading="lazy" src="{{ asset('assets/images/brands/adidas-logo.png') }}" alt="Adidas" class="img-fluid brand-logo"></div>
+            <div class="slide"><img loading="lazy" src="{{ asset('assets/images/Nike_Logo.webp') }}" alt="Nike" class="img-fluid brand-logo"></div>
+            <div class="slide"><img loading="lazy" src="{{ asset('assets/images/brands/under-armour-logo.png') }}" alt="Under Armour" class="img-fluid brand-logo"></div>
+            <div class="slide"><img loading="lazy" src="{{ asset('assets/images/brands/new-balance-logo.png') }}" alt="New Balance" class="img-fluid brand-logo"></div>
+            <div class="slide"><img loading="lazy" src="{{ asset('assets/images/brands/reebok-logo.png') }}" alt="Reebok" class="img-fluid brand-logo"></div>
+            <div class="slide"><img loading="lazy" src="{{ asset('assets/images/brands/fila-logo.png') }}" alt="Fila" class="img-fluid brand-logo"></div>
+            <div class="slide"><img loading="lazy" src="{{ asset('assets/images/brands/asics-logo.png') }}" alt="Asics" class="img-fluid brand-logo"></div>
+            <div class="slide"><img loading="lazy" src="{{ asset('assets/images/brands/converse-logo.png') }}" alt="Converse" class="img-fluid brand-logo"></div>
+            <div class="slide"><img loading="lazy" src="{{ asset('assets/images/brands/vans-logo.png') }}" alt="Vans" class="img-fluid brand-logo"></div>
+        </section>
+
+</div>
+@endsection
