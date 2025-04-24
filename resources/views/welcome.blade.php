@@ -6,7 +6,7 @@
         <div class="col-xl-9 my-2 enroll-card p-2 text-center shadow">
             <div class="row">
                 <div class="col-xl-2 d-flex align-items-center justify-content-center">
-                    <img loading="eager" src="{{ asset('assets/images/ONFIVE.png') }}" width="100px" alt="">
+                    <img loading="eager" src="{{ asset('assets/images/ONFIVE.png') }}" width="100px" alt="logo">
                 </div>
                 <div class="col-xl-2 d-flex align-items-center justify-content-center">
                     <a href="" class="action-btn">STAFF</a>
@@ -221,18 +221,20 @@
         </div> 
     </div>
 
+    @guest
     <div class="row my-2">
         <div class="col-xl-12 my-2 bg-primary border-radius shadow text-white">
-          <div class="row my-2 p-5 d-flex align-items-center justify-content-center text-center">
-            <div class="col-xl d-flex align-items-center justify-content-center">
-              <h5 class="text-center">Join our community now and become one of the best.</h5>
+            <div class="row my-2 p-5 d-flex align-items-center justify-content-center text-center">
+                <div class="col-xl d-flex align-items-center justify-content-center">
+                    <h5 class="text-center">Join our community now and become one of the best.</h5>
+                </div>
+                <div class="col-xl-2 d-flex align-items-center justify-content-center">
+                    <a href="{{ route('register') }}" class="btn btn-warning border-radius">Sign up</a>
+                </div>
             </div>
-            <div class="col-xl-2 d-flex align-items-center justify-content-center">
-              <a href="" class="btn btn-warning border-radius">Sign up</a>
-            </div>
-          </div>
         </div>
     </div>
+    @endguest
 
     <div class="row my-4">
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">

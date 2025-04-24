@@ -1,4 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -16,6 +16,13 @@ body {
 
 .navbar-nav .nav-item.active .nav-link {
     color: #04BA70 !important;
+}
+
+@media (max-width: 991.98px)  {
+    .right-nav {
+        min-height: 5rem;
+    }
+    
 }
 
 .navbar-nav .dropdown-menu a:hover {

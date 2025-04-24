@@ -33,12 +33,14 @@
 
                 <!-- Sign Up button -->
                 @guest
-                <div class="d-flex ms-auto">
-                    <a href="{{ route('home') }}" class="btn btn-outline-light me-2">
-                        <i class="fas fa-user-plus me-1"></i> Sign Up
+                <div class="container-fluid d-flex gap-0 column-gap-3 flex-lg-row flex-column ms-auto justify-content-center align-items-center right-nav">
+                    <a href="{{ route('register') }}" class="btn btn-outline-light btn-sm px-4 me-2 d-flex align-items-center mb-auto">
+                        <i class="fas fa-user-plus me-2"></i>
+                        <span>Sign Up</span>
                     </a>
-                    <a href="{{ route('home') }}" class="btn btn-warning">
-                        <i class="fas fa-sign-in-alt me-1"></i> Login
+                    
+                    <a href="{{ route('login') }}" class="btn btn-warning btn-sm px-3 d-flex align-items-center mt-auto">
+                        <i class="fas fa-sign-in-alt me-2"></i><span>Login</span>
                     </a>
                 </div>
                 @endguest
