@@ -28,7 +28,12 @@ class RegisterController extends Controller
         }
 
         if($request->hasFile('profile_picture')) {
-            $request->file('profile_picture')->storeAs('profile_pictures', $request->username . '.' . $request->file('profile_picture')->extension());
+            //check if the file already exists in storage
+            $existingFile = storage_path('app/profile_pictures/' . $request->username . '.' . $request->file('profile_picture')->extension());
+            // if it exists, don't upload it again
+            if (!file_exists($existingFile)) {
+                $request->file('profile_picture')->storeAs('profile_pictures', $request->username . '.' . $request->file('profile_picture')->extension());
+            }
         }
         $request->merge([
             'filename' => $request->username . '.' . $request->file('profile_picture')->extension(),
@@ -48,7 +53,7 @@ class RegisterController extends Controller
         if ($user) {
             $user->save();
             return redirect()->route('login')->with('success', 'Registration successful,Enter your Password to login')->withInput([
-                'username' => $request->username,
+                'email' => $request->email,
             ]);
         } else {
             return redirect()->back()->with('error', 'Registration failed');
