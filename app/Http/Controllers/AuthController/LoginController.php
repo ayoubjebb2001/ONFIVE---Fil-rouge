@@ -17,11 +17,17 @@ class LoginController extends Controller
 
         if (auth()->attempt($credentials)) {
             
-            return redirect()->intended()->with('success', 'Login successful');
+            return redirect()->intended()->with('login_success', 'Login successful');
         }
 
         return redirect()->back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->withInput($request->only('email'));
+    }
+
+    public function logout(Request $request) {
+        auth()->logout();
+
+        return redirect()->route('home')->with('logout_success', 'Logout successful');
     }
 }

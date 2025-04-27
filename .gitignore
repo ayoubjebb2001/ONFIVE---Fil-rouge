@@ -21,3 +21,4 @@ yarn-error.log
 public/robots.txt
 public/.htaccess
 public/assets/SCREEN
+public/*

@@ -1,6 +1,20 @@
-@extends('layouts.app')
+@extends('layouts.app',$user)
 
 @section('content')
+
+@session('logout_success')
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success!</strong> You have been logged out successfully.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endsession
+
+@session('login_success')
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success!</strong> You have been logged in successfully.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endsession
 <div class="container p-4">
     <div class="row my-2">
         <div class="col-xl-9 my-2 enroll-card p-2 text-center shadow">
@@ -21,9 +35,29 @@
         </div>
                   
         <div class="col-xl-3 my-2 d-flex align-items-center justify-content-center shadow">
-            <a href="#" class="btn play-btn text-center btn-lg d-flex align-items-center justify-content-center">
+            @guest
+            <a href={{ route('login') }} class="btn play-btn text-center btn-lg d-flex align-items-center justify-content-center">
                 <h1 style="font-weight: 700;">PLAY</h1>
             </a>
+            @endguest
+            @php
+                $todo = false;
+            @endphp
+
+            @if($todo)
+            @auth
+                @if ($user->isTeamCaptain() )
+                    <a href={{ route('team.challenge') }} class="btn play-btn text-center btn-lg d-flex align-items-center justify-content-center">
+                        <h1 style="font-weight: 700;">Challenge A Team</h1>
+                    </a>
+                @elseif($user->isPlayer() && $user->isFree())
+                    <a href={{ route('team.create') }} class="btn play-btn text-center btn-lg d-flex align-items-center justify-content-center">
+                        <h1 style="font-weight: 700;">Create A Team</h1>
+                    </a>
+                    
+                @endif
+            @endauth
+            @endif
         </div> 
     </div>
 
@@ -235,6 +269,36 @@
         </div>
     </div>
     @endguest
+    @if ($todo)
+    @auth
+    @if ($user->isTeamCaptain())
+    <div class="row my-2">
+        <div class="col-xl-12 my-2 bg-primary border-radius shadow text-white">
+            <div class="row my-2 p-5 d-flex align-items-center justify-content-center text-center">
+                <div class="col-xl d-flex align-items-center justify-content-center">
+                    <h5 class="text-center">What Are You Waiting ? Register your Team in our Tournaments</h5>
+                </div>
+                <div class="col-xl-2 d-flex align-items-center justify-content-center">
+                    <a href="{{ route(name: 'Tournaments') }}" class="btn btn-warning border-radius">LET'S DO IT</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+    @endif
+    <div class="row my-2">
+        <div class="col-xl-12 my-2 bg-primary border-radius shadow text-white">
+            <div class="row my-2 p-5 d-flex align-items-center justify-content-center text-center">
+                <div class="col-xl d-flex align-items-center justify-content-center">
+                    <h5 class="text-center">Join our community now and become one of the best.</h5>
+                </div>
+                <div class="col-xl-2 d-flex align-items-center justify-content-center">
+                    <a href="{{ route('register') }}" class="btn btn-warning border-radius">Sign up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endauth
 
     <div class="row my-4">
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
