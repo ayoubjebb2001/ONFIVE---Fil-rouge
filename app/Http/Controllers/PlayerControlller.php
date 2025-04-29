@@ -40,9 +40,10 @@ class PlayerControlller extends Controller
             'foot' => $data['foot'],
             'user_id' => request()->user()->id,
         ]);
+        $player->save();
         if($player) {
             User::where('id', request()->user()->id)->update(['role' => 'player']);
-            return redirect()->intended('teams')->with('info','You are now a player , you can now join a team');
+            return redirect()->intended('/')->with('info','You are now a player , you can now join a team');
         }
     }
 

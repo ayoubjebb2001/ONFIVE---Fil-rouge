@@ -15,6 +15,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endsession
+@session('info')
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <strong>Info!</strong> {{ session('info') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endsession
 <div class="container p-4">
     <div class="row my-2">
         <div class="col-xl-9 col-lg-8 col-md-12 my-2 enroll-card p-2 text-center shadow">

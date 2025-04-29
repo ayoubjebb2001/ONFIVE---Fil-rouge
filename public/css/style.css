@@ -208,7 +208,7 @@ body {
 }
 
 .form-select {
-     background-image: url('../images/ICONS/down-arrow.svg') !important;
+     background-image: url('../assets/images/ICONS/down-arrow.svg') !important;
 }
 
 .form-select:focus {
