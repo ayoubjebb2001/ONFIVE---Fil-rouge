@@ -22,7 +22,7 @@
 </head>
 
 <body>
-  <x-header :user="$user"></x-header>
+  <x-header :user="$user??null"></x-header>
 
   <main>
     @yield('content')

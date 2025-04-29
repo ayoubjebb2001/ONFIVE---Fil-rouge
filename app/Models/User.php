@@ -50,4 +50,6 @@ class User extends Authenticatable
             'birth_date' => 'datetime:d-m-Y',
         ];
     }
+
+    
 }

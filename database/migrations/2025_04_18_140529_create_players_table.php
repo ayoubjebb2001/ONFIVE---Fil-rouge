@@ -17,7 +17,7 @@ return new class extends Migration
                 'goalkeeper',
                 'defender',
                 'midfielder',
-                'forward'
+                'striker'
             ]);
             $table->enum('foot',[
                 'left',

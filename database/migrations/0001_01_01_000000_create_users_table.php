@@ -25,7 +25,8 @@ return new class extends Migration
                 'captain',
                 'organizer',
                 'staff',
-            ])->default('player');
+                'user'
+            ])->default('user');
             $table->date('birth_date');
             $table->string('profile_picture')->nullable();
             $table->rememberToken();

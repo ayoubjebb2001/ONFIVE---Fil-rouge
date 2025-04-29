@@ -11,7 +11,7 @@ class HomeController extends Controller
 {
     public function __invoke(Request $request) {
         if( Auth::check()) {
-            $user = User::where('id', Auth::user()->id)->first(['username', 'email', 'first_name', 'last_name', 'profile_picture']);
+            $user = User::where('id', Auth::user()->id)->first(['username', 'email', 'first_name', 'last_name', 'profile_picture','role']);
             return view('welcome', [
                 'user' => $user,
             ]);
