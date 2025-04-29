@@ -19,7 +19,7 @@ return new class extends Migration
             $table->tinyInteger('wins',false,true)->default(0);
             $table->tinyInteger('draws',false,true)->default(0);
             $table->tinyInteger('losses',false,true)->default(0);
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->unique()->constrained('users');
             $table->timestamps();
         });
     }

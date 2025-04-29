@@ -27,10 +27,12 @@
             <!-- Large screens (lg and up) - 3 columns layout -->
             <div class="row d-none d-lg-flex align-items-center justify-content-center">
                 <div class="col-xl-2 col-lg-3 d-flex align-items-center justify-content-center">
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center"> 
                         <img loading="eager" src="{{ asset('assets/images/ONFIVE.png') }}" class="img-fluid mb-2"
                             width="100px" alt="logo">
+
                         <span class="badge bg-primary ms-2">STAFF</span>
+
                     </div>
                 </div>
                 <div class="col-xl-8 col-lg-6 d-flex align-items-center justify-content-center">
@@ -40,7 +42,7 @@
                     <a href="" class="action-btn">Enroll</a>
                 </div>
             </div>
-            
+
             <!-- Medium screens (md) - 2 columns layout with grid -->
             <div class="d-none d-md-grid d-lg-none" style="display: grid; grid-template-columns: auto 1fr; gap: 10px;">
                 <div class="d-flex flex-column align-items-center justify-content-center" style="grid-row: span 2;">
@@ -55,7 +57,7 @@
                     <a href="" class="action-btn">Enroll</a>
                 </div>
             </div>
-            
+
             <!-- Small screens and below (sm and xs) - 3 rows layout -->
             <div class="row d-md-none align-items-center justify-content-center">
                 <div class="col-12 d-flex flex-column align-items-center justify-content-center">
@@ -90,6 +92,12 @@
                     <a href={{ route('players.create') }}
                         class="btn play-btn text-center d-flex align-items-center justify-content-center">
                         <h1>Be a Player</h1>
+                    </a>
+                @endif
+                @if($user->player && $user->player->team_id == null)
+                    <a href={{ route('teams.create') }}
+                        class="btn play-btn text-center d-flex align-items-center justify-content-center">
+                        <h1>Create a Team</h1>
                     </a>
                 @endif
             @endauth
