@@ -6,6 +6,7 @@ use App\Http\Controllers\PlayerControlller;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\User\HomeController;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class,'__invoke'])->name('home');
@@ -24,4 +25,10 @@ route::post('/logout',[LoginController::class,'logout'])->name('logout')->middle
 
 Route::resource('players',PlayerControlller::class)->middleware('auth');
 
-Route::resource('teams',TeamController::class)->middleware('auth');
+Route::resource('teams',TeamController::class)->middleware('auth')
+    ->missing(function (Request $request) {
+        return Redirect::route('teams.create');
+    });
+
+Route::get('/teams/{team}/add-players', [TeamController::class, 'showAddPlayers'])->name('teams.add-players-form');
+Route::post('/teams/{team}/add-players', [TeamController::class, 'addPlayers'])->name('teams.add-players');

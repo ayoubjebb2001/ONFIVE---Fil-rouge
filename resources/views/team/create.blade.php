@@ -21,19 +21,28 @@
                             <p>Upload the image of your team here.<br>require(300*300),Max 5mb</p>
                             <div class="mb-3">
                                 <label for="logo" class="btn btn-warning">Select file</label>
-                                <input type="file" name="logo" id="logo" class="d-none" accept="image/*" required>
+                                <input type="file" name="logo" id="logo" class="d-none" accept="image/* @error('logo') is-invalid @enderror" required>
                                 <div id="logoPreview" class="mt-2"></div>
                             </div>
+                            @error('logo')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
                         
                         <div class="mb-3">
                             <label for="name" class="mb-1">Name :</label>
-                            <input type="text" class="form-control bg-transparent text-white" id="name" name="name" placeholder="Name" required>
+                            <input type="text" class="form-control bg-transparent text-white" @error('name') is-invalid @enderror id="name" name="name" placeholder="Name" value="{{ old('name') }}" required>
+                            @error('name')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
                         
                         <div class="mb-3">
                             <label for="city" class="mb-1">City :</label>
-                            <input type="text" class="form-control bg-transparent text-white" id="city" name="city" placeholder="City" required>
+                            <input type="text" class="form-control bg-transparent text-white" @error('city') is-invalid @enderror id="city" name="city" placeholder="City" required value="{{ old('city') }}">
+                            @error('city')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
                         
                         <div class="text-end mt-4">

@@ -43,12 +43,13 @@
                     <div class="d-flex gap-2">
                         <a href="{{ route('register') }}"
                             class="btn btn-outline-light btn-sm px-4 d-flex align-items-center">
-                            <i class="fas fa-user-plus me-2"></i>
-                            <span class="d-none d-sm-inline">Sign Up</span>
+                            <i class="d-sm-inline d-md-none d-lg-inline fas fa-user-plus me-2"></i>
+                            <span class="d-none d-md-inline">Sign Up</span>
                         </a>
 
                         <a href="{{ route('login') }}" class="btn btn-warning btn-sm px-3 d-flex align-items-center">
-                            <i class="fas fa-sign-in-alt me-2"></i><span class="d-none d-sm-inline">Login</span>
+                            <i class="fas fa-sign-in-alt me-2 d-sm-inline d-md-none d-lg-inline"></i>
+                            <span class="d-none d-md-inline">Login</span>
                         </a>
                     </div>
                 @endguest

@@ -9,6 +9,7 @@ class Team extends Model
     protected $fillable = [
         'name',
         'logo',
+        'city',
         'wins',
         'losses',
         'draws',
@@ -16,6 +17,10 @@ class Team extends Model
     ];
 
     public function captain(){
-        return $this->hasOne(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function players(){
+        return $this->hasMany(Player::class);
     }
 }
