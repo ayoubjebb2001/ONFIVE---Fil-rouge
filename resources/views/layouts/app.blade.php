@@ -24,7 +24,12 @@
 </head>
 
 <body>
-  <x-header :user="$user??null"></x-header>
+  @auth
+  <x-header :$user></x-header>
+  @endauth
+  @guest
+  <x-guestheader></x-guestheader>
+  @endguest
 
   <main>
     @yield('content')

@@ -23,10 +23,7 @@ class PlayerControlller extends Controller
      */
     public function create()
     {
-        $user = request()->user()->only(['username','first_name', 'last_name', 'profile_picture', 'role']);
-        return view('player.create', [
-            'user' => $user,
-        ]);
+        return view('player.create');
     }
 
     /**

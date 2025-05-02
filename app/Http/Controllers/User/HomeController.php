@@ -10,16 +10,8 @@ use function Psy\debug;
 
 class HomeController extends Controller
 {
-    public function __invoke(Request $request) {
-        if( Auth::check()) {
-            
-            $user = Auth::user()->load('player');
-            return view('welcome', [
-                'user' => $user,
-            ]);
-        } else {
-            return view('welcome');
-
-        }
+    public function __invoke(Request $request)
+    {
+        return view('welcome');
     }
 }

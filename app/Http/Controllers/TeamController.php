@@ -27,9 +27,7 @@ class TeamController extends Controller
     public function create()
     {
 
-        return view('team.create', [
-            'user' => auth()->user(),
-        ]);
+        return view('team.create');
     }
 
     /**
@@ -74,7 +72,6 @@ class TeamController extends Controller
      */
     public function showAddPlayers(Team $team, Request $request)
     {
-        $user = Auth::user()->only(['username', 'first_name', 'last_name', 'profile_picture', 'role']);
         $teamPlayers = $team->players()->with('user')->get();
 
         // Get search term if provided
@@ -141,7 +138,6 @@ class TeamController extends Controller
             });
 
         return view('team.add-players', [
-            'user' => $user,
             'team' => $team,
             'players' => $teamPlayers,
             'forwards' => $forwards,
@@ -172,53 +168,6 @@ class TeamController extends Controller
         ];
     }
 
-    /**
-     * API endpoint to get more players by position with pagination
-     */
-    public function getPlayersByPosition(Request $request)
-    {
-        $validated = $request->validate([
-            'position' => 'required|in:striker,midfielder,defender,goalkeeper',
-            'page' => 'required|integer|min:1',
-            'per_page' => 'required|integer|min:4|max:20',
-        ]);
-
-        $position = $validated['position'];
-        $page = $validated['page'];
-        $perPage = $validated['per_page'];
-        $offset = ($page - 1) * $perPage;
-
-        $query = Player::whereNull('team_id')
-            ->where('position', $position)
-            ->with([
-                'user' => function ($query) {
-                    $query->select('id', 'first_name', 'last_name', 'profile_picture', 'birth_date');
-                }
-            ]);
-
-        // Add search term if provided
-        if ($request->has('search')) {
-            $search = $request->search;
-            $query->whereHas('user', function ($q) use ($search) {
-                $q->where('first_name', 'LIKE', "%{$search}%")
-                    ->orWhere('last_name', 'LIKE', "%{$search}%");
-            });
-        }
-
-        $players = $query->skip($offset)
-            ->take($perPage)
-            ->get()
-            ->map(function ($player) {
-                return $this->formatPlayerData($player);
-            });
-
-        $hasMore = $query->skip($offset + $perPage)->exists();
-
-        return response()->json([
-            'players' => $players,
-            'has_more' => $hasMore
-        ]);
-    }
 
     /**
      * Display the specified resource.
