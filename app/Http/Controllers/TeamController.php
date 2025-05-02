@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Player;
 use App\Models\Team;
 use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
+use App\Models\TeamInvitation;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-
 class TeamController extends Controller
 {
     /**
@@ -25,7 +27,7 @@ class TeamController extends Controller
     public function create()
     {
 
-        return view('team.create',[
+        return view('team.create', [
             'user' => auth()->user(),
         ]);
     }
@@ -36,12 +38,12 @@ class TeamController extends Controller
     public function store(StoreTeamRequest $request)
     {
         $validated = $request->validated();
-        
+
         $validated = $request->safe()->only(['name', 'city']);
 
         $file_name = Str::slug($validated['name']) . '.' . $request->file('logo')->extension();
 
-        if($request->hasFile('logo')) {
+        if ($request->hasFile('logo')) {
             //check if the file already exists in storage
             $existingFile = storage_path('app/teams/' . $file_name);
             // if it exists, don't upload it again
@@ -49,10 +51,10 @@ class TeamController extends Controller
                 $request->file('logo')->storeAs('teams', $file_name);
             }
         }
-        $validated ['logo'] = $file_name;
+        $validated['logo'] = $file_name;
         $validated['user_id'] = Auth::id();
         $team = Team::create($validated);
-        if($team){
+        if ($team) {
             Auth::user()->update([
                 'role' => 'captain',
             ]);
@@ -61,21 +63,160 @@ class TeamController extends Controller
             $player->save();
             $team->players()->save($player);
             return redirect()->route('teams.add-players-form', $team->id)->with('success', 'Team created successfully');
-        }else{
+        } else {
             return redirect()->back()->with('error', 'Team creation failed');
         }
     }
 
+
     /**
-     * Show the form for adding players to the team.
+     * Show the form for inviting players to the team.
      */
-    public function showAddPlayers(Team $team){
-        $user = Auth::user()->only(['username','first_name', 'last_name', 'profile_picture', 'role']);
-        $players = $team->players()->with('user')->get();
+    public function showAddPlayers(Team $team, Request $request)
+    {
+        $user = Auth::user()->only(['username', 'first_name', 'last_name', 'profile_picture', 'role']);
+        $teamPlayers = $team->players()->with('user')->get();
+
+        // Get search term if provided
+        $search = $request->query('search');
+
+        // Number of players per position to show
+        $perPage = 10;
+
+        // Base query for free players
+        $baseQuery = Player::whereNull('team_id')
+            ->when($search, function ($query) use ($search) {
+                return $query->whereHas('user', function ($q) use ($search) {
+                    $q->where('first_name', 'LIKE', "%{$search}%")
+                        ->orWhere('last_name', 'LIKE', "%{$search}%");
+                });
+            })
+            ->with([
+                'user' => function ($query) {
+                    $query->select('id', 'first_name', 'last_name', 'profile_picture', 'birth_date');
+                }
+            ]);
+
+        // Query players by position with pagination
+        $forwards = (clone $baseQuery)
+            ->where('position', 'striker')
+            ->paginate($perPage, ['*'], 'forwards_page')
+            ->through(function ($player) {
+                return $this->formatPlayerData($player);
+            });
+
+        $midfielders = (clone $baseQuery)
+            ->where('position', 'midfielder')
+            ->paginate($perPage, ['*'], 'midfielders_page')
+            ->through(function ($player) {
+                return $this->formatPlayerData($player);
+            });
+
+        $defenders = (clone $baseQuery)
+            ->where('position', 'defender')
+            ->paginate($perPage, ['*'], 'defenders_page')
+            ->through(function ($player) {
+                return $this->formatPlayerData($player);
+            });
+
+        $goalkeepers = (clone $baseQuery)
+            ->where('position', 'goalkeeper')
+            ->paginate($perPage, ['*'], 'goalkeepers_page')
+            ->through(function ($player) {
+                return $this->formatPlayerData($player);
+            });
+
+        // Get any pending invitations
+        $invitedPlayers = TeamInvitation::where('team_id', $team->id)
+            ->where('status', 'pending')
+            ->with('user:id,first_name,last_name,profile_picture')
+            ->get()
+            ->map(function ($invitation) {
+                return [
+                    'id' => $invitation->user->id,
+                    'name' => $invitation->user->first_name . ' ' . $invitation->user->last_name,
+                    'avatar' => $invitation->user->profile_picture,
+                    'invitation_id' => $invitation->id
+                ];
+            });
+
         return view('team.add-players', [
             'user' => $user,
             'team' => $team,
+            'players' => $teamPlayers,
+            'forwards' => $forwards,
+            'midfielders' => $midfielders,
+            'defenders' => $defenders,
+            'goalkeepers' => $goalkeepers,
+            'invitedPlayers' => $invitedPlayers,
+            'search' => $search
+        ]);
+    }
+
+    /**
+     * Format player data for frontend display
+     */
+    private function formatPlayerData($player)
+    {
+        // Calculate age from birthdate
+        $birthDate = \Carbon\Carbon::parse($player->user->birth_date);
+        $age = $birthDate->age;
+
+        return [
+            'id' => $player->id,
+            'name' => $player->user->first_name . ' ' . $player->user->last_name,
+            'avatar' => $player->user->profile_picture,
+            'position' => $player->position,
+            'foot' => $player->foot,
+            'age' => $age,
+        ];
+    }
+
+    /**
+     * API endpoint to get more players by position with pagination
+     */
+    public function getPlayersByPosition(Request $request)
+    {
+        $validated = $request->validate([
+            'position' => 'required|in:striker,midfielder,defender,goalkeeper',
+            'page' => 'required|integer|min:1',
+            'per_page' => 'required|integer|min:4|max:20',
+        ]);
+
+        $position = $validated['position'];
+        $page = $validated['page'];
+        $perPage = $validated['per_page'];
+        $offset = ($page - 1) * $perPage;
+
+        $query = Player::whereNull('team_id')
+            ->where('position', $position)
+            ->with([
+                'user' => function ($query) {
+                    $query->select('id', 'first_name', 'last_name', 'profile_picture', 'birth_date');
+                }
+            ]);
+
+        // Add search term if provided
+        if ($request->has('search')) {
+            $search = $request->search;
+            $query->whereHas('user', function ($q) use ($search) {
+                $q->where('first_name', 'LIKE', "%{$search}%")
+                    ->orWhere('last_name', 'LIKE', "%{$search}%");
+            });
+        }
+
+        $players = $query->skip($offset)
+            ->take($perPage)
+            ->get()
+            ->map(function ($player) {
+                return $this->formatPlayerData($player);
+            });
+
+        $hasMore = $query->skip($offset + $perPage)->exists();
+
+        return response()->json([
             'players' => $players,
+            'has_more' => $hasMore
         ]);
     }
 

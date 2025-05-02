@@ -78,4 +78,21 @@ class PlayerControlller extends Controller
     {
         //
     }
+
+    /**
+     * Search for players.
+     */
+    public function search(Request $request){
+        $query = $request->getHeaders()['query'][0] ?? null;
+        dd($query);
+        $players = Player::whereHas('user', function($q) use ($query){
+            $q->where('first_name', 'LIKE', "%{$query}%")
+              ->orWhere('last_name', 'LIKE', "%{$query}%")
+              ->orWhere('username', 'LIKE', "%{$query}%");
+        })->with('user')->get();
+
+        return response()->json([
+            'players' => $players,
+        ]);
+    }
 }

@@ -15,10 +15,12 @@
     <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" type="text/css"
     href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css') }}"> --}}
+  
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+
+    @stack('scripts')
+    
   <title>@yield('title', 'ON FIVE')</title>
-  @yield('additional_css')
 </head>
 
 <body>
@@ -35,6 +37,8 @@
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
   @yield('scripts')
+  @stack('scripts')
+
 </body>
 
 </html>

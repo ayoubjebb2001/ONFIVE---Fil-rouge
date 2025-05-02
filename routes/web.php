@@ -5,7 +5,7 @@ use App\Http\Controllers\AuthController\RegisterController;
 use App\Http\Controllers\PlayerControlller;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\User\HomeController;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
@@ -32,3 +32,10 @@ Route::resource('teams',TeamController::class)->middleware('auth')
 
 Route::get('/teams/{team}/add-players', [TeamController::class, 'showAddPlayers'])->name('teams.add-players-form');
 Route::post('/teams/{team}/add-players', [TeamController::class, 'addPlayers'])->name('teams.add-players');
+
+Route::get('players/search', [PlayerControlller::class, 'search'])->name('players.search');
+// Route for loading more players by position via AJAX
+Route::get('/players/by-position', [TeamController::class, 'getPlayersByPosition'])->name('players.by-position');
+
+Route::get('/teams/{team}/invite/{player}', [TeamController::class, 'InvitePlayer'])->name('teams.invite');
+Route::get('/TeamsInvitation/{id}', [TeamController::class, 'CancelInvite'])->name('teams.cancel-invite');
