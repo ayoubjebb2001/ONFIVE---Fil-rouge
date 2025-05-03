@@ -11,15 +11,25 @@ use App\Http\Requests\UpdateTeamRequest;
 use App\Models\TeamInvitation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 class TeamController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $search = $request->query('search');
+
+        $teams = Team::when($search, function ($query) use ($search) {
+            return $query->where('name', 'LIKE', "%{$search}%")
+                ->orWhere('city', 'LIKE', "%{$search}%");
+        })
+            ->orderBy('wins', 'desc')
+            ->paginate(12);
+
+        return view('team.index', compact('teams'));
     }
 
     /**
@@ -73,6 +83,7 @@ class TeamController extends Controller
      */
     public function showAddPlayers(Team $team, Request $request)
     {
+        Gate::authorize('addPlayers', $team);
         $teamPlayers = $team->players()->with('user')->get();
 
         // Get search term if provided
@@ -81,8 +92,13 @@ class TeamController extends Controller
         // Number of players per position to show
         $perPage = 10;
 
+        $invitedPlayersIds = TeamInvitation::where('team_id', $team->id)
+            ->where('status', 'pending')
+            ->pluck('user_id');
+
         // Base query for free players
         $baseQuery = Player::whereNull('team_id')
+            ->whereNotIn('user_id', $invitedPlayersIds)
             ->when($search, function ($query) use ($search) {
                 return $query->whereHas('user', function ($q) use ($search) {
                     $q->where('first_name', 'LIKE', "%{$search}%")
@@ -172,7 +188,9 @@ class TeamController extends Controller
     /**
      * Invite a player to the team.
      */
-    public function InvitePlayer(Team $team, Player $player) {
+    public function InvitePlayer(Team $team, Player $player)
+    {
+        Gate::authorize('invitePlayer', $team);
         // Check if the player is already in a team
         if ($player->team_id) {
             return redirect()->back()->with('error', 'Player is already in a team');
@@ -208,7 +226,8 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
-        //
+        $team->load(['players.user', 'captain']);
+        return view('team.show', compact('team'));
     }
 
     /**

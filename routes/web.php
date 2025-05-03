@@ -31,11 +31,11 @@ Route::resource('teams', TeamController::class)->middleware('auth')
         return Redirect::route('teams.create');
     });
 
-Route::get('/teams/{team}/add-players', [TeamController::class, 'showAddPlayers'])->name('teams.add-players-form');
+Route::get('/teams/{team}/add-players', [TeamController::class, 'showAddPlayers'])->middleware(['auth','can:addPlayers,team'])->name('teams.add-players-form');
 
 Route::get('players/search', [PlayerControlller::class, 'search'])->name('players.search');
 
-Route::get('/teams/{team}/invite/{player}', [TeamController::class, 'InvitePlayer'])->name('teams.invite');
+Route::get('/teams/{team}/invite/{player}', [TeamController::class, 'InvitePlayer'])->middleware(['auth', 'can:invitePlayer,team'])->name('teams.invite');
 
 // Notification routes
 Route::get('/notifications', function () {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TeamInvitation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class TeamInvitationController extends Controller
 {
@@ -14,20 +15,7 @@ class TeamInvitationController extends Controller
     public function accept(TeamInvitation $invitation)
     {
         // Verify user is authorized to accept this invitation
-        if ($invitation->user_id !== Auth::id()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'You are not authorized to accept this invitation.'
-            ], 403);
-        }
-
-        // Verify the invitation is still pending
-        if ($invitation->status !== 'pending') {
-            return response()->json([
-                'success' => false,
-                'message' => 'This invitation has already been processed.'
-            ], 400);
-        }
+        Gate::authorize('accept', $invitation);
 
         // Update invitation status
         $invitation->status = 'accepted';
@@ -57,21 +45,7 @@ class TeamInvitationController extends Controller
      */
     public function decline(TeamInvitation $invitation)
     {
-        // Verify user is authorized to decline this invitation
-        if ($invitation->user_id !== Auth::id()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'You are not authorized to decline this invitation.'
-            ], 403);
-        }
-
-        // Verify the invitation is still pending
-        if ($invitation->status !== 'pending') {
-            return response()->json([
-                'success' => false,
-                'message' => 'This invitation has already been processed.'
-            ], 400);
-        }
+        Gate::authorize('decline', $invitation);
 
         // Update invitation status
         $invitation->status = 'declined';
