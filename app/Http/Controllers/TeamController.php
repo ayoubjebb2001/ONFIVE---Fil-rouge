@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Events\TeamInvitationSent;
 use App\Models\Player;
 use App\Models\Team;
 use App\Http\Requests\StoreTeamRequest;
@@ -168,6 +169,39 @@ class TeamController extends Controller
         ];
     }
 
+    /**
+     * Invite a player to the team.
+     */
+    public function InvitePlayer(Team $team, Player $player) {
+        // Check if the player is already in a team
+        if ($player->team_id) {
+            return redirect()->back()->with('error', 'Player is already in a team');
+        }
+
+        // Check if the player has already been invited
+        $existingInvitation = TeamInvitation::where('team_id', $team->id)
+            ->where('user_id', $player->user_id)
+            ->where('status', 'pending')
+            ->first();
+
+        if ($existingInvitation) {
+            return redirect()->back()->with('error', 'Player has already been invited');
+        }
+
+        // Create the invitation
+        $invitation = new TeamInvitation([
+            'type' => 'team_to_player',
+            'team_id' => $team->id,
+            'user_id' => $player->user_id,
+            'status' => 'pending',
+        ]);
+
+        $invitation->save();
+
+        event(new TeamInvitationSent($invitation));
+
+        return redirect()->back()->with('success', 'Player invited successfully');
+    }
 
     /**
      * Display the specified resource.

@@ -204,27 +204,6 @@
                         </div>
                     @endif
 
-                    <!-- Invited Players Section -->
-                    <div id="selectedPlayers" class="mb-4 mt-5">
-                        <h5 class="mb-3">Invited Players:</h5>
-                        <div class="list-group bg-transparent">
-                            @if(count($invitedPlayers) > 0)
-                                @foreach($invitedPlayers as $player)
-                                    <div
-                                        class="list-group-item player-item d-flex justify-content-between align-items-center text-white">
-                                        <span>{{ $player['name']}}</span>
-                                        <a href="{{ route('teams.cancel-invite', ['invitation' => $player->invitation_id]) }}"
-                                            class="btn btn-sm btn-outline-danger">
-                                            <i class="fas fa-times"></i>
-                                        </a>
-                                    </div>
-                                @endforeach
-                            @else
-                                <p class="text-muted">No players invited yet</p>
-                            @endif
-                        </div>
-                    </div>
-
                     <div class="text-end mt-4">
                         <a href="{{ route('teams.show', $team['id']) }}" class="btn btn-success px-4">Done</a>
                     </div>
@@ -322,22 +301,6 @@
         border: 2px solid #2c3e50;
     }
 
-    .player-number {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        background-color: #3498db;
-        color: white;
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        font-size: 0.8rem;
-    }
-
     .player-name {
         text-align: center;
         font-weight: bold;
@@ -363,11 +326,6 @@
         color: #4cd137;
     }
 
-    .player-flag img {
-        width: 20px;
-        height: 15px;
-        object-fit: cover;
-    }
 
     .player-foot {
         display: flex;
@@ -440,136 +398,139 @@
         background: #3498db;
         border-radius: 5px;
     }
+
     @media (max-width: 991px) {
+
         /* Tablet view */
         .position-row {
             flex-wrap: wrap;
             overflow-x: hidden;
         }
-        
+
         .player-card {
             width: 48%;
             margin-right: 2%;
             margin-bottom: 15px;
         }
     }
-    
+
     @media (max-width: 767px) {
-    /* Mobile view - switch to list view */
-    .position-row {
-        flex-direction: column;
-        overflow-x: visible;
-    }
-    
-    .player-card {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 8px;
-        height: auto;
-        display: flex;
-        align-items: center;
-        background-color: #171717;
-        padding: 8px 12px;
-        border-radius: 4px;
-    }
-    
-    .player-card:hover {
-        transform: none;
-        background-color: #202020;
-    }
-    
-    .player-image-container {
-        padding: 0;
-        margin-right: 12px;
-        width: 40px;
-        height: 40px;
-        flex-shrink: 0;
-    }
-    
-    .player-image {
-        width: 40px;
-        height: 40px;
-        border-width: 1px;
-    }
-    
-    /* Hide default player info layout on mobile */
-    .player-card > .player-info {
-        display: none;
-    }
-    
-    /* Create a mobile-specific content area */
-    .player-card > .player-name {
-        text-align: left;
-        padding: 0;
-        margin: 0;
-        white-space: normal;
-        width: auto;
-        flex-grow: 1;
-    }
-    
-    /* Player details on one line */
-    .player-card::after {
-        content: attr(data-age) " " attr(data-nationality);
-        font-size: 0.8rem;
-        color: #aaa;
-        margin-left: auto;
-        white-space: nowrap;
-    }
-    
-    /* Card overlay fixed */
-    .card-overlay {
-        position: absolute;
-        right: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: auto;
-        height: auto;
-        background-color: transparent;
-        flex-direction: row;
-        opacity: 0; /* Keep it hidden by default */
-    }
-    
-    /* Show overlay on hover/touch */
-    .player-card:hover .card-overlay,
-    .player-card:focus .card-overlay,
-    .player-card:active .card-overlay {
-        opacity: 1;
-    }
-    
-    .invite-btn {
-        margin-bottom: 0;
-    }
-    
-    .invite-text {
-        display: none;
-    }
-    
-    /* Adjust position headers for mobile */
-    .position-header {
-        margin: 1rem 0 0.5rem;
-        font-size: 1rem;
-    }
-    
-    /* Fix pagination for mobile */
-    .pagination-container {
-        overflow-x: auto;
-        padding-bottom: 15px;
-    }
-    
-    .pagination {
-        white-space: nowrap;
-    }
-}
 
-@media (max-width: 767px) {
-    .pagination-container {
-        overflow-x: auto;
-        padding-bottom: 15px;
-    }
-    
-    .pagination {
-        white-space: nowrap;
-    }
-}
+        /* Mobile view - switch to list view */
+        .position-row {
+            flex-direction: column;
+            overflow-x: visible;
+        }
 
+        .player-card {
+            width: 100%;
+            margin-right: 0;
+            margin-bottom: 8px;
+            height: auto;
+            display: flex;
+            align-items: center;
+            background-color: #171717;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .player-card:hover {
+            transform: none;
+            background-color: #202020;
+        }
+
+        .player-image-container {
+            padding: 0;
+            margin-right: 12px;
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+        }
+
+        .player-image {
+            width: 40px;
+            height: 40px;
+            border-width: 1px;
+        }
+
+        /* Hide default player info layout on mobile */
+        .player-card>.player-info {
+            display: none;
+        }
+
+        /* Create a mobile-specific content area */
+        .player-card>.player-name {
+            text-align: left;
+            padding: 0;
+            margin: 0;
+            white-space: normal;
+            width: auto;
+            flex-grow: 1;
+        }
+
+        /* Player details on one line */
+        .player-card::after {
+            content: attr(data-age) " " attr(data-nationality);
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-left: auto;
+            white-space: nowrap;
+        }
+
+        /* Card overlay fixed */
+        .card-overlay {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: auto;
+            height: auto;
+            background-color: transparent;
+            flex-direction: row;
+            opacity: 0;
+            /* Keep it hidden by default */
+        }
+
+        /* Show overlay on hover/touch */
+        .player-card:hover .card-overlay,
+        .player-card:focus .card-overlay,
+        .player-card:active .card-overlay {
+            opacity: 1;
+        }
+
+        .invite-btn {
+            margin-bottom: 0;
+        }
+
+        .invite-text {
+            display: none;
+        }
+
+        /* Adjust position headers for mobile */
+        .position-header {
+            margin: 1rem 0 0.5rem;
+            font-size: 1rem;
+        }
+
+        /* Fix pagination for mobile */
+        .pagination-container {
+            overflow-x: auto;
+            padding-bottom: 15px;
+        }
+
+        .pagination {
+            white-space: nowrap;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .pagination-container {
+            overflow-x: auto;
+            padding-bottom: 15px;
+        }
+
+        .pagination {
+            white-space: nowrap;
+        }
+    }
 </style>

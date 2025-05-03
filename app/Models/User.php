@@ -54,5 +54,14 @@ class User extends Authenticatable
     public function player(){
         return $this->hasOne(Player::class,'user_id');
     }
+
+    public function invitations(){
+        return $this->hasMany(TeamInvitation::class,'user_id');
+    }
+
+    public function joinRequests() {
+        return $this->hasMany(TeamInvitation::class, 'user_id')
+            ->where('type', 'player_to_team');
+    }
     
 }

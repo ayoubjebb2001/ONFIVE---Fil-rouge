@@ -23,4 +23,11 @@ class Team extends Model
     public function players(){
         return $this->hasMany(Player::class);
     }
+    public function invitations(){
+        return $this->hasMany(TeamInvitation::class,'team_id')->where('type','team_to_player');
+    }
+
+    public function joinRequests(){
+        return $this->hasMany(TeamInvitation::class,'team_id')->where('type','player_to_team');
+    }
 }

@@ -41,7 +41,8 @@
             <div class="d-flex align-items-center">
 
                 <!-- Notification dropdown -->
-                <div class="nav-item dropdown me-2">
+                <x-notification-menu/>
+                {{-- <div class="nav-item dropdown me-2">
                     <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-bell"></i>
@@ -52,7 +53,7 @@
                         <li><a class="dropdown-item" href="#">Another news</a></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
-                </div>
+                </div> --}}
 
                 <!-- Avatar dropdown -->
                 <div class="navbar-item navbar-user">

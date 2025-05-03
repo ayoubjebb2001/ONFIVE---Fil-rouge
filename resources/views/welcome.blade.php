@@ -23,90 +23,103 @@
     @endsession
     <div class="container p-4">
         <div class="row my-2">
+            @if(!auth()->check() || (auth()->check() && auth()->user()->role == "user"))
             <div class="col-xl-9 col-lg-8 col-md-12 my-2 enroll-card p-2 text-center shadow">
-                <!-- Large screens (lg and up) - 3 columns layout -->
-                <div class="row d-none d-lg-flex align-items-center justify-content-center">
-                    <div class="col-xl-2 col-lg-3 d-flex align-items-center justify-content-center">
-                        <div class="d-flex align-items-center">
-                            <img loading="eager" src="{{ asset('assets/images/ONFIVE.png') }}" class="img-fluid mb-2"
-                                width="100px" alt="logo">
-
-                            <span class="badge bg-primary ms-2">STAFF</span>
-
-                        </div>
-                    </div>
-                    <div class="col-xl-8 col-lg-6 d-flex align-items-center justify-content-center">
-                        <p class="text-center m-2">Host matches, save their data and much more ...</p>
-                    </div>
-                    <div class="col-xl-2 col-lg-3 d-flex align-items-center justify-content-center">
-                        <a href="" class="action-btn">Enroll</a>
-                    </div>
+            <!-- Large screens (lg and up) - 3 columns layout -->
+            <div class="row d-none d-lg-flex align-items-center justify-content-center">
+                <div class="col-xl-2 col-lg-3 d-flex align-items-center justify-content-center">
+                <div class="d-flex align-items-center">
+                    <img loading="eager" src="{{ asset('assets/images/ONFIVE.png') }}" class="img-fluid mb-2"
+                    width="100px" alt="logo">
+                    <span class="badge bg-primary ms-2">STAFF</span>
                 </div>
-
-                <!-- Medium screens (md) - 2 columns layout with grid -->
-                <div class="d-none d-md-grid d-lg-none" style="display: grid; grid-template-columns: auto 1fr; gap: 10px;">
-                    <div class="d-flex flex-column align-items-center justify-content-center" style="grid-row: span 2;">
-                        <img loading="eager" src="{{ asset('assets/images/ONFIVE.png') }}" class="img-fluid mb-2"
-                            width="100px" alt="logo">
-                        <span class="badge bg-primary">STAFF</span>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                        <p class="text-center m-2">Host matches, save their data and much more ...</p>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                        <a href="" class="action-btn">Enroll</a>
-                    </div>
                 </div>
-
-                <!-- Small screens and below (sm and xs) - 3 rows layout -->
-                <div class="row d-md-none align-items-center justify-content-center">
-                    <div class="col-12 d-flex flex-column align-items-center justify-content-center">
-                        <div class="d-flex flex-column align-items-center">
-                            <img loading="eager" src="{{ asset('assets/images/ONFIVE.png') }}" class="img-fluid mb-2"
-                                width="100px" alt="logo">
-                            <span class="badge bg-primary">STAFF</span>
-                        </div>
-                    </div>
-                    <div class="col-12 d-flex align-items-center justify-content-center mt-2">
-                        <p class="text-center m-2">Host matches, save their data and much more ...</p>
-                    </div>
-                    <div class="col-12 d-flex align-items-center justify-content-center mt-2">
-                        <a href="" class="action-btn">Enroll</a>
-                    </div>
+                <div class="col-xl-8 col-lg-6 d-flex align-items-center justify-content-center">
+                <p class="text-center m-2">Host matches, save their data and much more ...</p>
                 </div>
+                <div class="col-xl-2 col-lg-3 d-flex align-items-center justify-content-center">
+                <a href="" class="action-btn">Enroll</a>
+                </div>
+            </div>
+
+            <!-- Medium screens (md) - 2 columns layout with grid -->
+            <div class="d-none d-md-grid d-lg-none" style="display: grid; grid-template-columns: auto 1fr; gap: 10px;">
+                <div class="d-flex flex-column align-items-center justify-content-center" style="grid-row: span 2;">
+                <img loading="eager" src="{{ asset('assets/images/ONFIVE.png') }}" class="img-fluid mb-2"
+                    width="100px" alt="logo">
+                <span class="badge bg-primary">STAFF</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-center">
+                <p class="text-center m-2">Host matches, save their data and much more ...</p>
+                </div>
+                <div class="d-flex align-items-center justify-content-center">
+                <a href="" class="action-btn">Enroll</a>
+                </div>
+            </div>
+
+            <!-- Small screens and below (sm and xs) - 3 rows layout -->
+            <div class="row d-md-none align-items-center justify-content-center">
+                <div class="col-12 d-flex flex-column align-items-center justify-content-center">
+                <div class="d-flex flex-column align-items-center">
+                    <img loading="eager" src="{{ asset('assets/images/ONFIVE.png') }}" class="img-fluid mb-2"
+                    width="100px" alt="logo">
+                    <span class="badge bg-primary">STAFF</span>
+                </div>
+                </div>
+                <div class="col-12 d-flex align-items-center justify-content-center mt-2">
+                <p class="text-center m-2">Host matches, save their data and much more ...</p>
+                </div>
+                <div class="col-12 d-flex align-items-center justify-content-center mt-2">
+                <a href="" class="action-btn">Enroll</a>
+                </div>
+            </div>
             </div>
 
             <div class="col-xl-3 col-lg-4 col-md-12 my-2 d-flex align-items-center justify-content-center shadow">
-                @guest
-                    <a href={{ route('teams.create') }}
-                        class="btn play-btn text-center btn-lg d-flex align-items-center justify-content-center w-100">
-                        <h1>PLAY</h1>
-                    </a>
-                @endguest
-                @auth
-                    @if($user->role == "user")
-                        <a href={{ route('players.create') }}
-                            class="btn play-btn text-center d-flex align-items-center justify-content-center">
-                            <h1>Be a Player</h1>
-                        </a>
-                    @endif
-                    @if($user->player && $user->player->team_id == null)
-                        <a href={{ route('teams.create') }}
-                            class="btn play-btn text-center d-flex align-items-center justify-content-center">
-                            <h1>Create a Team</h1>
-                        </a>
-                        <a href={{ route('teams.index') }}
-                            class="btn play-btn text-center d-flex align-items-center justify-content-center">
-                            <h1>Join a Team</h1>
-                    @endif
-                        @if ($user->player && $user->role == "captain")
-                            <a href={{ route('teams.add-players-form', $user->player->team) }}
-                                class="btn play-btn text-center d-flex align-items-center justify-content-center">
-                                <h1>Add Players</h1>
-                            </a>
-                        @endif
-                @endauth
+            @guest
+                <a href={{ route('teams.create') }}
+                class="btn play-btn text-center btn-lg d-flex align-items-center justify-content-center w-100">
+                <h1>PLAY</h1>
+                </a>
+            @endguest
+            @auth
+                @if($user->role == "user")
+                <a href={{ route('players.create') }}
+                    class="btn play-btn text-center d-flex align-items-center justify-content-center w-100">
+                    <h1>Be a Player</h1>
+                </a>
+                @endif
+            @endauth
             </div>
+            @else
+            <!-- For player, captain, or admin roles -->
+            <div class="col-12 my-2">
+            <div class="d-flex flex-wrap justify-content-around align-items-center gap-3">
+                @if($user->player && $user->player->team_id == null)
+                <a href={{ route('teams.create') }}
+                    class="btn play-btn text-center d-flex align-items-center justify-content-center">
+                    <h3>Create a Team</h3>
+                </a>
+                <a href={{ route('teams.index') }}
+                    class="btn play-btn text-center d-flex align-items-center justify-content-center">
+                    <h3>Join a Team</h3>
+                </a>
+                @endif
+                @if($user->role == "captain")
+                <a href={{ route('teams.add-players-form', $user->player->team) }}
+                    class="btn play-btn text-center d-flex align-items-center justify-content-center">
+                    <h3>Add Players</h3>
+                </a>
+                @endif
+                @if( ($user->role == "player" && !is_null($user->player->team_id) ) || $user->role == "captain")
+                <a href={{ route('teams.show', $user->player->team) }}
+                    class="btn play-btn text-center d-flex align-items-center justify-content-center">
+                    <h3>My Team</h3>
+                </a>
+                @endif
+            </div>
+            </div>
+            @endif
         </div>
 
         <div class="row my-2">
