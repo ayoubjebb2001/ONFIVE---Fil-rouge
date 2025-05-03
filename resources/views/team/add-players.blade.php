@@ -7,7 +7,6 @@
             <div class="bg-primary text-white rounded">
                 <div class="card-body p-5">
                     <h2 class="text-center mb-4">Players</h2>
-
                     <!-- Team Info -->
                     <div class="mb-4">
                         <div class="d-flex align-items-center mb-3">
@@ -212,11 +211,9 @@
         </div>
     </div>
 </div>
+@endsection
 
 <style>
-    /* Keep all your existing styles */
-
-    /* Add pagination styling */
     .pagination-container {
         margin-top: 1rem;
     }
