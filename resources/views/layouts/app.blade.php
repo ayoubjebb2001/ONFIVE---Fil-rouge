@@ -56,7 +56,7 @@
 
   @auth
     <!-- Vite build files -->
-    @vite(['resources/js/app.js', 'resources/js/notifications.js'])
+    @vite(['resources/js/app.js'])
   @endauth
 
   @yield('scripts')

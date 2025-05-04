@@ -37,6 +37,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+
     /**
      * Get the attributes that should be cast.
      *
@@ -51,17 +52,28 @@ class User extends Authenticatable
         ];
     }
 
-    public function player(){
-        return $this->hasOne(Player::class,'user_id');
+    /**
+     * Get the player associated with the user.
+     */
+    public function player()
+    {
+        return $this->hasOne(Player::class, 'user_id');
     }
 
-    public function invitations(){
-        return $this->hasMany(TeamInvitation::class,'user_id');
+    /**
+     * Get the team invitations for the user.
+     */
+    public function invitations()
+    {
+        return $this->hasMany(TeamInvitation::class, 'user_id');
     }
 
-    public function joinRequests() {
-        return $this->hasMany(TeamInvitation::class, 'user_id')
-            ->where('type', 'player_to_team');
+    /**
+     * Get the join requests sent by the user.
+     */
+    public function joinRequests()
+    {
+        return $this->hasMany(JoinRequest::class, 'user_id');
     }
-    
+
 }

@@ -12,7 +12,7 @@ class NotificationController extends Controller
     public function index()
     {
         $notifications = auth()->user()->notifications()->paginate(10);
-        return response()->json($notifications);
+        return view('notifications.index', compact('notifications'));
     }
 
     /**
@@ -26,7 +26,7 @@ class NotificationController extends Controller
             $notification->markAsRead();
         }
 
-        return response()->json(['success' => true]);
+        return redirect()->back();
     }
 
     /**
@@ -36,6 +36,6 @@ class NotificationController extends Controller
     {
         auth()->user()->unreadNotifications->markAsRead();
 
-        return response()->json(['success' => true]);
+        return redirect()->back();
     }
 }
